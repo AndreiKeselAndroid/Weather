@@ -3,4 +3,7 @@
     <string name="search_fragment">Search Fragment</string>
     <string name="main_fragment">Main Fragment</string>
     <string name="manager_city_fragment">Manager city fragment</string>
+    <string name="manager_city">Управление городами</string>
+    <string name="enter_city_name">Введите город</string>
+    <string name="search">Поиск</string>
 </resources>

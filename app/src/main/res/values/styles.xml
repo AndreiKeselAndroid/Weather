@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="CustomTextCityName">
+        <item name="android:textStyle">normal</item>
+        <item name="android:layout_gravity">start</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:textColor">@color/purple_200</item>
+    </style>
+
+    <style name="CustomTextDescription">
+        <item name="android:textStyle">normal</item>
+        <item name="android:layout_gravity">start</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/purple_200</item>
+    </style>
+
+    <style name="CustomTextTemp">
+        <item name="android:textStyle">normal</item>
+        <item name="android:layout_gravity">start</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textSize">48sp</item>
+        <item name="android:textColor">@color/purple_200</item>
+    </style>
+
+    <style name="CustomTextInfoWeather">
+        <item name="android:textStyle">normal</item>
+        <item name="android:layout_gravity">start</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:textColor">@color/purple_200</item>
+    </style>
+
+    <style name="ButtonTextView" parent="Widget.AppCompat.TextView">
+        <item name="android:background">@drawable/button</item>
+        <item name="android:gravity">center</item>
+        <item name="android:padding">8dp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+
+    <style name="CustomTextDescriptionItem">
+        <item name="android:textStyle">normal</item>
+        <item name="android:layout_gravity">start</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+</resources>

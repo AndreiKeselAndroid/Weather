@@ -9,6 +9,9 @@
         android:name="com.google.andreikesel.weather.screen.main.MainFragment"
         android:label="MainFragment" >
         <action
+            android:id="@+id/action_mainFragment_to_searchFragment"
+            app:destination="@id/searchFragment" />
+        <action
             android:id="@+id/action_mainFragment_to_managerCityFragment"
             app:destination="@id/managerCityFragment" />
     </fragment>
@@ -16,9 +19,6 @@
         android:id="@+id/managerCityFragment"
         android:name="com.google.andreikesel.weather.screen.manager.ManagerCityFragment"
         android:label="ManagerCityFragment" >
-        <action
-            android:id="@+id/action_managerCityFragment_to_searchFragment"
-            app:destination="@id/searchFragment" />
         <action
             android:id="@+id/action_managerCityFragment_to_mainFragment"
             app:destination="@id/mainFragment" />
@@ -28,7 +28,7 @@
         android:name="com.google.andreikesel.weather.screen.search.SearchFragment"
         android:label="SearchFragment" >
         <action
-            android:id="@+id/action_searchFragment_to_managerCityFragment"
-            app:destination="@id/managerCityFragment" />
+            android:id="@+id/action_searchFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
     </fragment>
 </navigation>

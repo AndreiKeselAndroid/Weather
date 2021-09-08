@@ -6,5 +6,6 @@ data class WeatherResult(
     val temp: Double,
     val humidity: Int,
     val feelsLike: Double,
-    val iconId: String
+    val iconId: String,
+    val windSpeed: Double
 )

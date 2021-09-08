@@ -3,10 +3,25 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Android/Weather/app/src/main/res/drawable/button.xml" value="0.20833333333333334" />
+        <entry key="..\:/Android/Weather/app/src/main/res/drawable/ic_back.xml" value="0.20833333333333334" />
+        <entry key="..\:/Android/Weather/app/src/main/res/drawable/ic_baseline_search_24.xml" value="0.20833333333333334" />
+        <entry key="..\:/Android/Weather/app/src/main/res/drawable/ic_cloudy.xml" value="0.20833333333333334" />
+        <entry key="..\:/Android/Weather/app/src/main/res/drawable/ic_humidity.xml" value="0.20833333333333334" />
+        <entry key="..\:/Android/Weather/app/src/main/res/drawable/ic_humidity_24.xml" value="0.20833333333333334" />
+        <entry key="..\:/Android/Weather/app/src/main/res/drawable/ic_maintenance.xml" value="0.20833333333333334" />
+        <entry key="..\:/Android/Weather/app/src/main/res/drawable/ic_search.xml" value="0.20833333333333334" />
+        <entry key="..\:/Android/Weather/app/src/main/res/drawable/ic_thermometer.xml" value="0.20833333333333334" />
+        <entry key="..\:/Android/Weather/app/src/main/res/drawable/ic_thermometer_24.xml" value="0.20833333333333334" />
+        <entry key="..\:/Android/Weather/app/src/main/res/drawable/ic_thermometer__1_.xml" value="0.20833333333333334" />
+        <entry key="..\:/Android/Weather/app/src/main/res/drawable/ic_wind.xml" value="0.20833333333333334" />
+        <entry key="..\:/Android/Weather/app/src/main/res/drawable/ic_wind_24.xml" value="0.20833333333333334" />
+        <entry key="..\:/Android/Weather/app/src/main/res/drawable/search_text.xml" value="0.20833333333333334" />
         <entry key="..\:/Android/Weather/app/src/main/res/layout/activity_main.xml" value="0.12771739130434784" />
-        <entry key="..\:/Android/Weather/app/src/main/res/layout/fragment_main.xml" value="0.1921875" />
+        <entry key="..\:/Android/Weather/app/src/main/res/layout/fragment_main.xml" value="0.2" />
         <entry key="..\:/Android/Weather/app/src/main/res/layout/fragment_manager_city.xml" value="0.1921875" />
-        <entry key="..\:/Android/Weather/app/src/main/res/layout/fragment_search.xml" value="0.12771739130434784" />
+        <entry key="..\:/Android/Weather/app/src/main/res/layout/fragment_search.xml" value="0.25" />
+        <entry key="..\:/Android/Weather/app/src/main/res/layout/item_city.xml" value="0.2" />
       </map>
     </option>
   </component>
