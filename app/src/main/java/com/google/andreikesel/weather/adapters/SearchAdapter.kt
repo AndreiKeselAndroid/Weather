@@ -73,11 +73,10 @@ class SearchAdapter(
 
             bindingView.tvHumidity.text = item.humidity.toString()
             bindingView.tvTemp.text = item.temp.toString()
-            bindingView.tvWind.text = item.windSpeed.toString()+ " м/с"
+            bindingView.tvWind.text = item.windSpeed.toString() + " м/с"
             bindingView.tvName.text = item.name
 
             bindingView.itemCity.setOnClickListener {
-
                 addCity(item)
             }
 
@@ -86,6 +85,7 @@ class SearchAdapter(
             Glide
                 .with(bindingView.root)
                 .load(url)
+                .placeholder(R.drawable.ic_cloudy)
                 .into(bindingView.weatherImage)
         }
     }

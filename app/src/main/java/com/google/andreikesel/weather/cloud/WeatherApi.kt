@@ -21,7 +21,7 @@ interface WeatherApi {
     @GET(BuildConfig.GET_API_KEY_WEATHER)
     suspend fun getWeatherCoordinates(
         @Query("lat") lat: Double,
-        @Query("lat") lon: Double,
+        @Query("lon") lon: Double,
         @Query("lang") lang: String = LANG,
         @Query("units") units: String = UNITS,
     ): WeatherResponse

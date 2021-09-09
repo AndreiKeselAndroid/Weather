@@ -1,127 +1,144 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="16dp">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <ImageView
-        android:id="@+id/city_manager_image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:scaleType="fitXY"
-        android:src="@drawable/ic_maintenance"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_name_city"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/tv_name_city" />
+    <data>
 
-    <ImageView
-        android:id="@+id/search_image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:scaleType="fitXY"
-        android:src="@drawable/ic_search"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_name_city"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/tv_name_city" />
+        <variable
+            name="viewmodel"
+            type="com.google.andreikesel.weather.models.MainViewModel" />
+    </data>
 
-    <TextView
-        android:id="@+id/tv_name_city"
-        style="@style/CustomTextCityName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toStartOf="@+id/search_image"
-        app:layout_constraintStart_toEndOf="@+id/city_manager_image"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="Минск" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp">
 
-    <ImageView
-        android:id="@+id/weather_image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
-        android:scaleType="fitXY"
-        android:src="@drawable/ic_cloudy"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_name_city" />
+        <ImageView
+            android:id="@+id/city_manager_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_maintenance"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_name_city"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tv_name_city" />
 
-    <ImageView
-        android:id="@+id/temp_image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:scaleType="fitXY"
-        android:src="@drawable/ic_thermometer"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_temp"
-        app:layout_constraintStart_toEndOf="@+id/tv_temp"
-        app:layout_constraintTop_toTopOf="@+id/tv_temp" />
+        <ImageView
+            android:id="@+id/search_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_search"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_name_city"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tv_name_city" />
 
-    <TextView
-        android:id="@+id/tv_temp"
-        style="@style/CustomTextTemp"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/weather_image"
-        app:layout_constraintTop_toBottomOf="@+id/tv_description"
-        tools:text="19" />
+        <TextView
+            android:id="@+id/tv_name_city"
+            style="@style/CustomTextCityName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@{viewmodel.livedata.name}"
+            app:layout_constraintEnd_toStartOf="@+id/search_image"
+            app:layout_constraintStart_toEndOf="@+id/city_manager_image"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Минск" />
 
-    <TextView
-        android:id="@+id/tv_description"
-        style="@style/CustomTextDescription"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:gravity="center"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/weather_image"
-        tools:text="Облачно" />
+        <ImageView
+            android:id="@+id/weather_image"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_marginTop="16dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_cloudy"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_name_city" />
 
-    <ImageView
-        android:id="@+id/humidity_image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:scaleType="fitXY"
-        android:src="@drawable/ic_humidity"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/tv_temp"/>
+        <ImageView
+            android:id="@+id/temp_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_thermometer"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_temp"
+            app:layout_constraintStart_toEndOf="@+id/tv_temp"
+            app:layout_constraintTop_toTopOf="@+id/tv_temp" />
 
-    <TextView
-        android:id="@+id/tv_humidity"
-        style="@style/CustomTextInfoWeather"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toEndOf="@+id/humidity_image"
-        app:layout_constraintStart_toStartOf="@+id/humidity_image"
-        app:layout_constraintTop_toBottomOf="@+id/humidity_image"
-        tools:text="50" />
+        <TextView
+            android:id="@+id/tv_temp"
+            style="@style/CustomTextTemp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{Integer.toString(viewmodel.livedata.temp)}"
+            app:layout_constraintBottom_toBottomOf="parent"
 
-    <ImageView
-        android:id="@+id/wind_image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:scaleType="fitXY"
-        android:src="@drawable/ic_wind"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/tv_temp" />
+            app:layout_constraintEnd_toStartOf="@+id/wind_image"
+            app:layout_constraintStart_toEndOf="@+id/humidity_image"
+            app:layout_constraintTop_toBottomOf="@+id/tv_description"
+            tools:text="19" />
 
-    <TextView
-        android:id="@+id/tv_wind"
-        style="@style/CustomTextInfoWeather"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toEndOf="@+id/wind_image"
-        app:layout_constraintStart_toStartOf="@+id/wind_image"
-        app:layout_constraintTop_toBottomOf="@+id/wind_image"
-        tools:text="2м/с" />
+        <TextView
+            android:id="@+id/tv_description"
+            style="@style/CustomTextDescription"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:gravity="center"
+            android:text="@{viewmodel.livedata.description}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/weather_image"
+            tools:text="Облачно" />
+
+        <ImageView
+            android:id="@+id/humidity_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_humidity"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tv_temp" />
+
+        <TextView
+            android:id="@+id/tv_humidity"
+            style="@style/CustomTextInfoWeather"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@{Integer.toString(viewmodel.livedata.humidity)}"
+            app:layout_constraintEnd_toEndOf="@+id/humidity_image"
+            app:layout_constraintStart_toStartOf="@+id/humidity_image"
+            app:layout_constraintTop_toBottomOf="@+id/humidity_image"
+            tools:text="50" />
+
+        <ImageView
+            android:id="@+id/wind_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_wind"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tv_temp" />
+
+        <TextView
+            android:id="@+id/tv_wind"
+            style="@style/CustomTextInfoWeather"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@{Double.toString(viewmodel.livedata.windSpeed)}"
+            app:layout_constraintEnd_toEndOf="@+id/wind_image"
+            app:layout_constraintStart_toStartOf="@+id/wind_image"
+            app:layout_constraintTop_toBottomOf="@+id/wind_image"
+            tools:text="2м/с" />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -11,9 +11,10 @@ import com.google.andreikesel.databinding.FragmentManagerCityBinding
 import com.google.andreikesel.weather.adapters.ManagerCityAdapter
 import com.google.andreikesel.weather.data.WeatherResult
 import com.google.andreikesel.weather.models.ManagerCityViewModel
-import com.google.andreikesel.weather.models.SearchViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.component.KoinApiExtension
 
+@KoinApiExtension
 class ManagerCityFragment : Fragment() {
 
     private var binding: FragmentManagerCityBinding? = null
@@ -52,6 +53,10 @@ class ManagerCityFragment : Fragment() {
 
             adapter = weatherCityAdapter
         }
+
+        viewModel.liveData.observe(viewLifecycleOwner, {
+            weatherCityAdapter.submitList(it)
+        })
     }
 
     override fun onDestroyView() {
@@ -60,6 +65,6 @@ class ManagerCityFragment : Fragment() {
     }
 
     private fun deleteCity(weatherResult: WeatherResult) {
-
+        viewModel.deleteCity(weatherResult)
     }
 }

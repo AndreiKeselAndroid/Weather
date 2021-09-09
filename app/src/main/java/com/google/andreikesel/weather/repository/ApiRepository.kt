@@ -1,6 +1,5 @@
 package com.google.andreikesel.weather.repository
 
-import android.text.TextUtils.replace
 import com.google.andreikesel.weather.cloud.WeatherApi
 import com.google.andreikesel.weather.data.WeatherResult
 import com.google.andreikesel.weather.database.dao.WeatherDao
@@ -14,34 +13,31 @@ class ApiRepository(
 ) {
     suspend fun getApiResultCity(nameCity: String): List<WeatherResult> = listOf(
         WeatherResult(
-            weatherApi.getWeatherCity(nameCity).weather.map {
+            removeChars(weatherApi.getWeatherCity(nameCity).weather.map {
                 it.description
-            }.toString(),
+            }.toString()),
             weatherApi.getWeatherCity(nameCity).name,
-            weatherApi.getWeatherCity(nameCity).main.temp,
+            weatherApi.getWeatherCity(nameCity).main.temp.toInt(),
             weatherApi.getWeatherCity(nameCity).main.humidity,
             weatherApi.getWeatherCity(nameCity).main.feelsLike,
-            weatherApi.getWeatherCity(nameCity).weather.map {
-                it.icon
-            }.toString()
-                .replace("[", "")
-                .replace("]", ""),
+            removeChars(weatherApi.getWeatherCity(nameCity).weather.map {
+                removeChars(it.icon)
+            }.toString()),
             weatherApi.getWeatherCity(nameCity).wind.speed
         )
     )
 
     suspend fun getApiResultCoordinates(lat: Double, lon: Double): WeatherResult = WeatherResult(
-
-        weatherApi.getWeatherCoordinates(lat, lon).weather.map {
+        removeChars(weatherApi.getWeatherCoordinates(lat, lon).weather.map {
             it.description
-        }.toString(),
+        }.toString()),
         weatherApi.getWeatherCoordinates(lat, lon).name,
-        weatherApi.getWeatherCoordinates(lat, lon).main.temp,
+        weatherApi.getWeatherCoordinates(lat, lon).main.temp.toInt(),
         weatherApi.getWeatherCoordinates(lat, lon).main.humidity,
         weatherApi.getWeatherCoordinates(lat, lon).main.feelsLike,
-        weatherApi.getWeatherCoordinates(lat, lon).weather.map {
+        removeChars(weatherApi.getWeatherCoordinates(lat, lon).weather.map {
             it.icon
-        }.toString(),
+        }.toString()),
         weatherApi.getWeatherCoordinates(lat, lon).wind.speed
     )
 
@@ -49,7 +45,7 @@ class ApiRepository(
         return weatherDao.getWeatherCityList().map {
             it.map { weatherEntity ->
                 WeatherResult(
-                    weatherEntity.description,
+                    removeChars(weatherEntity.description),
                     weatherEntity.name,
                     weatherEntity.temp,
                     weatherEntity.humidity,
@@ -64,14 +60,14 @@ class ApiRepository(
     suspend fun addWeatherCityToDatabase(
         description: String,
         name: String,
-        temp: Double,
+        temp: Int,
         humidity: Int,
         feelsLike: Double,
         iconId: String,
         windSpeed: Double
     ) {
         val weatherCity = WeatherEntity(
-            description,
+            removeChars(description),
             name,
             temp,
             humidity,
@@ -96,6 +92,8 @@ class ApiRepository(
             )
         )
     }
+
+    private fun removeChars(s: String) = s.replace("[", "").replace("]", "")
 
 
     companion object {

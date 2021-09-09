@@ -80,9 +80,11 @@ class ManagerCityAdapter(
                 return@setOnLongClickListener true
             }
 
+            val url = "https://openweathermap.org/img/wn/${item.iconId}@2x.png"
+
             Glide
                 .with(bindingView.root)
-                .load(item.iconId)
+                .load(url)
                 .placeholder(R.drawable.ic_cloudy)
                 .into(bindingView.weatherImage)
         }

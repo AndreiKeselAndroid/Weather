@@ -6,7 +6,7 @@ import androidx.room.Entity
 data class WeatherEntity(
     val description: String,
     val name: String,
-    val temp: Double,
+    val temp: Int,
     val humidity: Int,
     val feelsLike: Double,
     val iconId: String,

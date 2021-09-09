@@ -24,4 +24,18 @@ class SearchViewModel(
             }
         }
     }
+
+    fun addWeatherCity(weatherResult: WeatherResult) {
+        viewModelScope.launch {
+            apiRepository.addWeatherCityToDatabase(
+                weatherResult.description,
+                weatherResult.name,
+                weatherResult.temp,
+                weatherResult.humidity,
+                weatherResult.feelsLike,
+                weatherResult.iconId,
+                weatherResult.windSpeed
+            )
+        }
+    }
 }
