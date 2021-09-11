@@ -21,7 +21,7 @@ class MainViewModel(
     private val _mutableLiveData = MutableLiveData<WeatherResult>()
     val livedata: LiveData<WeatherResult> = _mutableLiveData
 
-    fun update (lat: Double, lon: Double,bindingView:FragmentMainBinding) {
+    fun update(lat: Double, lon: Double, bindingView: FragmentMainBinding) {
 
         viewModelScope.launch {
             val name = apiRepository.getApiResultCoordinates(lat, lon)

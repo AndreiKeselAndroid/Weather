@@ -1,37 +1,36 @@
 package com.google.andreikesel.weather.screen.main
 
-import android.Manifest
 import android.annotation.SuppressLint
-import android.app.Activity
-import android.content.IntentSender
-import android.content.pm.PackageManager
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
+import androidx.work.PeriodicWorkRequest
+import androidx.work.PeriodicWorkRequestBuilder
+import androidx.work.WorkManager
 import com.google.andreikesel.R
 import com.google.andreikesel.databinding.FragmentMainBinding
 import com.google.andreikesel.weather.models.MainViewModel
-import com.google.android.gms.common.api.ResolvableApiException
-import com.google.android.gms.location.*
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.tasks.Task
+import com.google.andreikesel.weather.workManagers.WeatherWorkManager
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.component.KoinApiExtension
+import java.util.concurrent.TimeUnit
+import android.Manifest.permission.ACCESS_FINE_LOCATION
+import android.Manifest.permission.ACCESS_COARSE_LOCATION
+import androidx.core.app.ActivityCompat
+import android.content.pm.PackageManager
+import androidx.core.content.ContextCompat
+import android.widget.Toast
+import com.google.andreikesel.weather.repository.ApiCoordinatesRepository
+
 
 @KoinApiExtension
 class MainFragment : Fragment() {
 
     private var binding: FragmentMainBinding? = null
     private val viewModel: MainViewModel by viewModel()
-    private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
-    private lateinit var locationCallback: LocationCallback
-    private lateinit var locationRequest: LocationRequest
-    private var myLocation: LatLng? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -50,31 +49,21 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        ApiCoordinatesRepository.liveData.observe(viewLifecycleOwner, {
+              viewModel.update(it.latitude,it.longitude,binding!!)
+        })
+
+        val uploadWorkRequest: PeriodicWorkRequest =
+            PeriodicWorkRequestBuilder<WeatherWorkManager>(15, TimeUnit.MINUTES)
+                .build()
+
+        WorkManager
+            .getInstance(requireContext())
+            .enqueue(uploadWorkRequest)
+
+
         binding?.viewmodel = viewModel
         binding?.lifecycleOwner = this
-
-        locationCallback = object : LocationCallback() {
-            override fun onLocationResult(p0: LocationResult) {
-                myLocation = LatLng(p0.lastLocation.latitude, p0.lastLocation.longitude)
-                viewModel.update(myLocation!!.latitude, myLocation!!.longitude, binding!!)
-            }
-        }
-
-        if (ContextCompat.checkSelfPermission(
-                requireContext(),
-                Manifest.permission.ACCESS_COARSE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            ActivityCompat.requestPermissions(
-                requireContext() as Activity, arrayOf(
-                    Manifest.permission.ACCESS_COARSE_LOCATION,
-                    Manifest.permission.ACCESS_FINE_LOCATION,
-                    Manifest.permission.ACCESS_NETWORK_STATE
-                ), 2
-            )
-        } else {
-            locationWizardry()
-        }
 
         binding?.searchImage?.setOnClickListener {
             view.findNavController().navigate(R.id.searchFragment)
@@ -84,56 +73,50 @@ class MainFragment : Fragment() {
             view.findNavController().navigate(R.id.managerCityFragment)
         }
 
+        if (!checkLocationPermission()) {
+            activity?.let {
+                ActivityCompat.requestPermissions(
+                    it,
+                    arrayOf(ACCESS_COARSE_LOCATION, ACCESS_FINE_LOCATION),
+                    PERMISSION_REQUEST_CODE
+                )
+            }
+        }
+    }
+
+    private fun checkLocationPermission(): Boolean {
+        val result3 = ContextCompat.checkSelfPermission(requireContext(), ACCESS_COARSE_LOCATION)
+        val result4 = ContextCompat.checkSelfPermission(requireContext(), ACCESS_FINE_LOCATION)
+        return result3 == PackageManager.PERMISSION_GRANTED &&
+                result4 == PackageManager.PERMISSION_GRANTED
     }
 
     override fun onRequestPermissionsResult(
         requestCode: Int,
-        permissions: Array<out String>,
+        permissions: Array<String?>,
         grantResults: IntArray
     ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        locationWizardry()
-    }
-
-    @SuppressLint("MissingPermission")
-    private fun locationWizardry() {
-        fusedLocationProviderClient =
-            LocationServices.getFusedLocationProviderClient(requireContext())
-
-        fusedLocationProviderClient.lastLocation.addOnSuccessListener { location ->
-
-            myLocation = LatLng(location.latitude, location.longitude)
-
-        }
-
-        createLocRequest()
-        val builder = LocationSettingsRequest.Builder()
-            .addLocationRequest(locationRequest)
-
-        val client = LocationServices.getSettingsClient(requireContext())
-        val task: Task<LocationSettingsResponse> = client.checkLocationSettings(builder.build())
-        task.addOnFailureListener { e ->
-            if (e is ResolvableApiException) {
-                try {
-                    e.startResolutionForResult(requireActivity(), 500)
-                } catch (sendEx: IntentSender.SendIntentException) {
+        if (requestCode == PERMISSION_REQUEST_CODE) {
+            if (grantResults.isNotEmpty()) {
+                val coarseLocation = grantResults[0] == PackageManager.PERMISSION_GRANTED
+                val fineLocation = grantResults[1] == PackageManager.PERMISSION_GRANTED
+                if (coarseLocation && fineLocation) Toast.makeText(
+                    requireContext(),
+                    "Permission Granted",
+                    Toast.LENGTH_SHORT
+                ).show() else {
+                    Toast.makeText(requireContext(), "Permission Denied", Toast.LENGTH_SHORT).show()
                 }
             }
         }
-
-        fusedLocationProviderClient.requestLocationUpdates(locationRequest, locationCallback, null)
-    }
-
-    private fun createLocRequest() {
-        locationRequest = LocationRequest.create()
-        locationRequest.interval = 20000
-        locationRequest.fastestInterval = 5000
-        locationRequest.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         binding = null
+    }
 
+    companion object {
+        private const val PERMISSION_REQUEST_CODE = 200
     }
 }

@@ -78,7 +78,7 @@ class ApiRepository(
         weatherDao.addWeatherCity(weatherCity)
     }
 
-    suspend fun deleteWeatherCityOutDatabase(weatherResult: WeatherResult) {
+   suspend fun deleteWeatherCityOutDatabase(weatherResult: WeatherResult) {
 
         weatherDao.deleteWeatherCity(
             WeatherEntity(
