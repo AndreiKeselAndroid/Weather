@@ -7,7 +7,7 @@
     <fragment
         android:id="@+id/mainFragment"
         android:name="com.google.andreikesel.weather.screen.main.MainFragment"
-        android:label="MainFragment" >
+        android:label="MainFragment">
         <action
             android:id="@+id/action_mainFragment_to_searchFragment"
             app:destination="@id/searchFragment" />
@@ -30,5 +30,8 @@
         <action
             android:id="@+id/action_searchFragment_to_mainFragment"
             app:destination="@id/mainFragment" />
+        <action
+            android:id="@+id/action_searchFragment_to_managerCityFragment"
+            app:destination="@id/managerCityFragment" />
     </fragment>
 </navigation>

@@ -23,7 +23,10 @@ import androidx.core.app.ActivityCompat
 import android.content.pm.PackageManager
 import androidx.core.content.ContextCompat
 import android.widget.Toast
+import com.google.andreikesel.BR
 import com.google.andreikesel.weather.repository.ApiCoordinatesRepository
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 
 
 @KoinApiExtension
@@ -42,6 +45,10 @@ class MainFragment : Fragment() {
             container,
             false
         )
+        binding?.viewmodel = viewModel
+        binding?.lifecycleOwner = this
+        binding?.setVariable(BR.viewmodel, viewModel)
+
         return binding!!.root
     }
 
@@ -49,8 +56,19 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
         ApiCoordinatesRepository.liveData.observe(viewLifecycleOwner, {
-              viewModel.update(it.latitude,it.longitude,binding!!)
+            when (ApiCoordinatesRepository.isLocation) {
+                true -> {
+                    viewModel.update(it.latitude, it.longitude, binding!!)
+                }
+                false -> {
+                    viewModel.update(
+                        ApiCoordinatesRepository.location!!.latitude,
+                        ApiCoordinatesRepository.location!!.longitude, binding!!
+                    )
+                }
+            }
         })
 
         val uploadWorkRequest: PeriodicWorkRequest =
@@ -61,16 +79,22 @@ class MainFragment : Fragment() {
             .getInstance(requireContext())
             .enqueue(uploadWorkRequest)
 
-
-        binding?.viewmodel = viewModel
-        binding?.lifecycleOwner = this
-
         binding?.searchImage?.setOnClickListener {
             view.findNavController().navigate(R.id.searchFragment)
         }
 
         binding?.cityManagerImage?.setOnClickListener {
             view.findNavController().navigate(R.id.managerCityFragment)
+        }
+
+        binding?.ivLocation?.setOnClickListener {
+            ApiCoordinatesRepository.isLocation = true
+            val fusedLocationClient: FusedLocationProviderClient =
+                LocationServices.getFusedLocationProviderClient(requireContext())
+            fusedLocationClient.lastLocation
+                .addOnSuccessListener {
+                    ApiCoordinatesRepository.update(it.latitude, it.longitude)
+                }
         }
 
         if (!checkLocationPermission()) {

@@ -12,7 +12,8 @@ import com.google.andreikesel.weather.data.WeatherResult
 
 class ManagerCityAdapter(
 
-    private val deleteCity: (WeatherResult) -> Unit
+    private val deleteCity: (WeatherResult) -> Unit,
+    private val insertCityFromDatabase: (WeatherResult) -> Unit
 
 ) : ListAdapter<WeatherResult,
         ManagerCityAdapter.ManagerCityViewHolder>(DifUtilItemCallback()) {
@@ -28,7 +29,8 @@ class ManagerCityAdapter(
                 parent,
                 false
             ),
-            deleteCity
+            deleteCity,
+            insertCityFromDatabase
         )
 
     override fun onBindViewHolder(holder: ManagerCityViewHolder, position: Int) {
@@ -62,8 +64,8 @@ class ManagerCityAdapter(
 
     class ManagerCityViewHolder(
         private val bindingView: ItemCityBinding,
-        private val deleteCity: (WeatherResult) -> Unit
-
+        private val deleteCity: (WeatherResult) -> Unit,
+        private val insertCityFromDatabase: (WeatherResult) -> Unit
     ) : RecyclerView.ViewHolder(bindingView.root) {
 
         fun bind(item: WeatherResult) {
@@ -78,6 +80,12 @@ class ManagerCityAdapter(
                 deleteCity(item)
 
                 return@setOnLongClickListener true
+            }
+
+            bindingView.itemCity.setOnClickListener {
+
+                insertCityFromDatabase(item)
+
             }
 
             val url = "https://openweathermap.org/img/wn/${item.iconId}@2x.png"

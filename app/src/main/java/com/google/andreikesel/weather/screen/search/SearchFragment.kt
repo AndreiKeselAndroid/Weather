@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.andreikesel.R
 import com.google.andreikesel.databinding.FragmentSearchBinding
 import com.google.andreikesel.weather.adapters.SearchAdapter
 import com.google.andreikesel.weather.data.WeatherResult
@@ -62,7 +63,7 @@ class SearchFragment : Fragment() {
         binding?.btnSearch?.setOnClickListener {
 
             if (binding!!.etSearch.text.isNotEmpty()) {
-                viewModel.searchCity(binding!!.etSearch.text.toString())
+                viewModel.searchCity(binding!!.etSearch.text.toString(),requireContext())
             }
             binding!!.etSearch.text = null
         }
@@ -70,6 +71,7 @@ class SearchFragment : Fragment() {
 
     private fun addCity(weatherResult: WeatherResult) {
         viewModel.addWeatherCity(weatherResult)
+        view?.findNavController()?.navigate(R.id.managerCityFragment)
     }
 
     override fun onDestroyView() {

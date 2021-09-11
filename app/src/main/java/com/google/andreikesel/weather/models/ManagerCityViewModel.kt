@@ -22,6 +22,8 @@ class ManagerCityViewModel(
         apiRepository.getWeatherCityOutDatabase().map {
             it.map { weatherResult ->
                 WeatherResult(
+                    weatherResult.lat,
+                    weatherResult.lon,
                     weatherResult.description,
                     weatherResult.name,
                     weatherResult.temp,
@@ -33,6 +35,7 @@ class ManagerCityViewModel(
             }
 
         }.asLiveData()
+
 
     fun deleteCity(weatherResult: WeatherResult) {
 

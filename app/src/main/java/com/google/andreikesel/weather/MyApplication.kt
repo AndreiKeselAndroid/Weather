@@ -3,6 +3,8 @@ package com.google.andreikesel.weather
 import android.app.Application
 import com.google.andreikesel.weather.cloud.WeatherApi
 import com.google.andreikesel.weather.database.DatabaseConstructor
+import com.google.andreikesel.weather.database.SavedCityWeatherDatabase
+import com.google.andreikesel.weather.database.SavedDatabaseConstructor
 import com.google.andreikesel.weather.database.WeatherCityDatabase
 import com.google.andreikesel.weather.models.MainViewModel
 import com.google.andreikesel.weather.models.ManagerCityViewModel
@@ -29,6 +31,8 @@ class MyApplication : Application() {
     private val storageModule = module {
         single { DatabaseConstructor.create(get()) }
         factory { get<WeatherCityDatabase>().myWeatherCityDao() }
+        single { SavedDatabaseConstructor.create(get()) }
+        factory { get<SavedCityWeatherDatabase>().savedWeatherCityDao() }
     }
 
     private val api = module {
@@ -36,7 +40,7 @@ class MyApplication : Application() {
     }
 
     private val repository = module {
-        factory { ApiRepository(get(), get()) }
+        factory { ApiRepository(get(), get(), get()) }
     }
 
     private val viewModel = module {

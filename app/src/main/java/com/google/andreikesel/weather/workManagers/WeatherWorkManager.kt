@@ -40,6 +40,7 @@ class WeatherWorkManager(private val appContext: Context, workerParams: WorkerPa
             val startDate = dateFormat.parse(DEFAULT_START_TIME)
             val endDate = dateFormat.parse(DEFAULT_END_TIME)
 
+
             if (currentDate!!.after(startDate) && currentDate.before(endDate)) {
                 mFusedLocationClient = LocationServices.getFusedLocationProviderClient(appContext)
                 mLocationCallback = object : LocationCallback() {
@@ -98,7 +99,7 @@ class WeatherWorkManager(private val appContext: Context, workerParams: WorkerPa
 
     companion object {
 
-        private const val UPDATE_INTERVAL_IN_MILLISECONDS: Long = 1000
+        private const val UPDATE_INTERVAL_IN_MILLISECONDS: Long = 10000
         private const val FASTEST_UPDATE_INTERVAL_IN_MILLISECONDS =
             UPDATE_INTERVAL_IN_MILLISECONDS / 2
         private const val DEFAULT_START_TIME = "00:01"

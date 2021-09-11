@@ -5,11 +5,17 @@ import com.google.andreikesel.weather.data.Location
 
 object ApiCoordinatesRepository {
 
-    private var location:Location? = null
-    var liveData:MutableLiveData<Location> = MutableLiveData()
+    var location: Location? = null
+    var liveData: MutableLiveData<Location> = MutableLiveData()
+    var isLocation:Boolean = true
 
-    fun update(lat:Double,lon:Double){
-        location = Location(lat,lon)
-        liveData.postValue(this.location)
+    fun update(lat: Double, lon: Double) {
+        if (isLocation){
+            location = Location(lat, lon)
+            liveData.postValue(this.location)
+        }else{
+            val _location = location
+            liveData.postValue(_location)
+        }
     }
 }
