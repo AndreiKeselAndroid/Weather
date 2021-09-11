@@ -99,7 +99,7 @@ class WeatherWorkManager(private val appContext: Context, workerParams: WorkerPa
 
     companion object {
 
-        private const val UPDATE_INTERVAL_IN_MILLISECONDS: Long = 10000
+        private const val UPDATE_INTERVAL_IN_MILLISECONDS: Long = 15*60*1000
         private const val FASTEST_UPDATE_INTERVAL_IN_MILLISECONDS =
             UPDATE_INTERVAL_IN_MILLISECONDS / 2
         private const val DEFAULT_START_TIME = "00:01"
