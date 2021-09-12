@@ -111,8 +111,8 @@ class ApiRepository(
 
     suspend fun addSavedCityWeatherToDatabase(lat: Double, lon: Double) {
         val savedWeatherCity = SavedCityWeatherEntity(
-            lat = weatherApi.getWeatherCoordinates(lat,lon).coord.lat,
-            lon = weatherApi.getWeatherCoordinates(lat,lon).coord.lon,
+            lat = weatherApi.getWeatherCoordinates(lat, lon).coord.lat,
+            lon = weatherApi.getWeatherCoordinates(lat, lon).coord.lon,
             description = removeChars(weatherApi.getWeatherCoordinates(lat, lon).weather.map {
                 it.description
             }.toString()),
@@ -129,7 +129,8 @@ class ApiRepository(
         savedCityWeatherDao.addSavedCityWeather(savedWeatherCity)
     }
 
-    private fun removeChars(s: String) = s.replace("[", "").replace("]", "")
+    private fun removeChars(s: String) = s.replace("[", "")
+        .replace("]", "")
 
     companion object {
         const val LANG = "ru"

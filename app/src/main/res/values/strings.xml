@@ -7,4 +7,11 @@
     <string name="enter_city_name">Введите город</string>
     <string name="search">Поиск</string>
     <string name="search_is_empty">Ничего не найдено</string>
+    <string name="permission_granted">Permission Granted</string>
+    <string name="permission_denied">Permission Denied</string>
+    <string name="time_update_info">Обновлять погоду в промежутке:</string>
+    <string name="time_update_start">с</string>
+    <string name="time_update_end">до</string>
+    <string name="start">СТАРТ</string>
+    <string name="speed"> м/с</string>
 </resources>

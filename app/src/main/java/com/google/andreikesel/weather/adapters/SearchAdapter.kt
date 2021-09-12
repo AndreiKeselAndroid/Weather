@@ -1,7 +1,6 @@
 package com.google.andreikesel.weather.adapters
 
 import android.annotation.SuppressLint
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -73,7 +72,7 @@ class SearchAdapter(
 
             bindingView.tvHumidity.text = item.humidity.toString()
             bindingView.tvTemp.text = item.temp.toString()
-            bindingView.tvWind.text = item.windSpeed.toString() + " м/с"
+            bindingView.tvWind.text = item.windSpeed.toString()
             bindingView.tvName.text = item.name
 
             bindingView.itemCity.setOnClickListener {

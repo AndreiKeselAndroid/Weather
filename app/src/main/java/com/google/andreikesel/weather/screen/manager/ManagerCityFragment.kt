@@ -1,10 +1,10 @@
 package com.google.andreikesel.weather.screen.manager
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.andreikesel.R
@@ -14,7 +14,6 @@ import com.google.andreikesel.weather.data.Location
 import com.google.andreikesel.weather.data.WeatherResult
 import com.google.andreikesel.weather.models.ManagerCityViewModel
 import com.google.andreikesel.weather.repository.ApiCoordinatesRepository
-import org.koin.androidx.scope.fragmentScope
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.component.KoinApiExtension
 
@@ -41,7 +40,7 @@ class ManagerCityFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding?.backImage?.setOnClickListener {
-            view.findNavController().popBackStack(R.id.mainFragment,false)
+            view.findNavController().popBackStack(R.id.mainFragment, false)
         }
 
         val weatherCityAdapter = ManagerCityAdapter(
@@ -75,7 +74,8 @@ class ManagerCityFragment : Fragment() {
 
     private fun insertCityFromDatabase(weatherResult: WeatherResult) {
         ApiCoordinatesRepository.isLocation = false
-        ApiCoordinatesRepository.location = Location(weatherResult.lat,weatherResult.lon)
-        view?.findNavController()?.popBackStack(R.id.mainFragment,false)
+        ApiCoordinatesRepository.location = Location(weatherResult.lat, weatherResult.lon)
+        ApiCoordinatesRepository.liveData.postValue(Location(weatherResult.lat, weatherResult.lon))
+        view?.findNavController()?.popBackStack(R.id.mainFragment, false)
     }
 }
